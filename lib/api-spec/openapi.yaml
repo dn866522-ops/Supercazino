@@ -1,0 +1,811 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: BetUZ Casino & Sports Betting API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+  - name: auth
+  - name: user
+  - name: games
+  - name: deposit
+  - name: withdrawal
+  - name: admin
+  - name: support
+  - name: sports
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout user
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /user/profile:
+    get:
+      operationId: getProfile
+      tags: [user]
+      summary: Get user profile
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+    put:
+      operationId: updateProfile
+      tags: [user]
+      summary: Update user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProfileRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+
+  /user/balance:
+    get:
+      operationId: getBalance
+      tags: [user]
+      summary: Get user balance
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BalanceResponse"
+
+  /user/referral:
+    get:
+      operationId: getReferral
+      tags: [user]
+      summary: Get referral info
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReferralInfo"
+
+  /user/transactions:
+    get:
+      operationId: getTransactions
+      tags: [user]
+      summary: Get transaction history
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionList"
+
+  /games/play:
+    post:
+      operationId: playGame
+      tags: [games]
+      summary: Play a casino game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayGameRequest"
+      responses:
+        "200":
+          description: Game result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /games/list:
+    get:
+      operationId: getGamesList
+      tags: [games]
+      summary: Get all casino games
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GamesList"
+
+  /deposit/initiate:
+    post:
+      operationId: initiateDeposit
+      tags: [deposit]
+      summary: Initiate a deposit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DepositInitiateRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DepositResponse"
+
+  /deposit/confirm:
+    post:
+      operationId: confirmDeposit
+      tags: [deposit]
+      summary: Confirm deposit with receipt
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/DepositConfirmRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /withdrawal/request:
+    post:
+      operationId: requestWithdrawal
+      tags: [withdrawal]
+      summary: Request withdrawal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WithdrawalRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /sports/matches:
+    get:
+      operationId: getSportsMatches
+      tags: [sports]
+      summary: Get football matches with odds
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchesList"
+
+  /sports/bet:
+    post:
+      operationId: placeSportsBet
+      tags: [sports]
+      summary: Place a sports bet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SportsBetRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /support/message:
+    post:
+      operationId: sendSupportMessage
+      tags: [support]
+      summary: Send support message
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/SupportMessageRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /admin/verify:
+    post:
+      operationId: verifyAdmin
+      tags: [admin]
+      summary: Verify admin code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminVerifyRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/users:
+    get:
+      operationId: adminGetUsers
+      tags: [admin]
+      summary: Get all users (admin)
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUsersList"
+
+  /admin/balance:
+    post:
+      operationId: adminUpdateBalance
+      tags: [admin]
+      summary: Add or subtract balance (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminBalanceRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /admin/block:
+    post:
+      operationId: adminBlockUser
+      tags: [admin]
+      summary: Block or unblock user (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminBlockRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required: [message]
+
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        referralCode:
+          type: string
+      required: [username, password, phone]
+
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required: [username, password]
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/UserProfile"
+      required: [token, user]
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        username:
+          type: string
+        phone:
+          type: string
+        balance:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        isBlocked:
+          type: boolean
+        isProfileComplete:
+          type: boolean
+        totalDeposited:
+          type: number
+        totalWagered:
+          type: number
+        referralCode:
+          type: string
+        createdAt:
+          type: string
+      required: [id, userId, username, phone, balance, isBlocked, isProfileComplete, totalDeposited, totalWagered, referralCode, createdAt]
+
+    UpdateProfileRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        phone:
+          type: string
+
+    BalanceResponse:
+      type: object
+      properties:
+        balance:
+          type: number
+      required: [balance]
+
+    ReferralInfo:
+      type: object
+      properties:
+        referralCode:
+          type: string
+        referredCount:
+          type: integer
+        qualifiedCount:
+          type: integer
+        bonusEarned:
+          type: number
+        bonusAvailable:
+          type: number
+      required: [referralCode, referredCount, qualifiedCount, bonusEarned, bonusAvailable]
+
+    TransactionList:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transaction"
+      required: [transactions]
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        amount:
+          type: number
+        status:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+      required: [id, type, amount, status, description, createdAt]
+
+    PlayGameRequest:
+      type: object
+      properties:
+        gameType:
+          type: string
+          enum: [slots, mines, crash, dice, wheel, roulette, blackjack, baccarat, keno, plinko, hilo, coinflip, tower, applefortune, crystal, dragontiger, sicbo, andarbahar, teenpatii, videopoker]
+        betAmount:
+          type: number
+        gameData:
+          type: object
+          additionalProperties: true
+      required: [gameType, betAmount]
+
+    GameResult:
+      type: object
+      properties:
+        won:
+          type: boolean
+        winAmount:
+          type: number
+        newBalance:
+          type: number
+        multiplier:
+          type: number
+        result:
+          type: object
+          additionalProperties: true
+        message:
+          type: string
+      required: [won, winAmount, newBalance, multiplier, message]
+
+    GamesList:
+      type: object
+      properties:
+        games:
+          type: array
+          items:
+            $ref: "#/components/schemas/GameItem"
+      required: [games]
+
+    GameItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        nameUz:
+          type: string
+        type:
+          type: string
+        category:
+          type: string
+        maxWin:
+          type: string
+        isHot:
+          type: boolean
+        isBest:
+          type: boolean
+      required: [id, name, nameUz, type, category, maxWin, isHot, isBest]
+
+    DepositInitiateRequest:
+      type: object
+      properties:
+        method:
+          type: string
+          enum: [uzcard, humo, visa]
+        amount:
+          type: number
+      required: [method, amount]
+
+    DepositResponse:
+      type: object
+      properties:
+        depositId:
+          type: integer
+        cardNumber:
+          type: string
+        cardHolder:
+          type: string
+        method:
+          type: string
+        amount:
+          type: number
+      required: [depositId, cardNumber, cardHolder, method, amount]
+
+    DepositConfirmRequest:
+      type: object
+      properties:
+        depositId:
+          type: integer
+        receipt:
+          type: string
+          format: binary
+      required: [depositId]
+
+    WithdrawalRequest:
+      type: object
+      properties:
+        method:
+          type: string
+          enum: [uzcard, humo, visa]
+        amount:
+          type: number
+        cardNumber:
+          type: string
+      required: [method, amount, cardNumber]
+
+    MatchesList:
+      type: object
+      properties:
+        live:
+          type: array
+          items:
+            $ref: "#/components/schemas/Match"
+        upcoming:
+          type: array
+          items:
+            $ref: "#/components/schemas/Match"
+      required: [live, upcoming]
+
+    Match:
+      type: object
+      properties:
+        id:
+          type: string
+        league:
+          type: string
+        homeTeam:
+          type: string
+        awayTeam:
+          type: string
+        homeScore:
+          type: integer
+        awayScore:
+          type: integer
+        status:
+          type: string
+        minute:
+          type: integer
+        startTime:
+          type: string
+        odds:
+          $ref: "#/components/schemas/Odds"
+        isLive:
+          type: boolean
+      required: [id, league, homeTeam, awayTeam, homeScore, awayScore, status, startTime, odds, isLive]
+
+    Odds:
+      type: object
+      properties:
+        home:
+          type: number
+        draw:
+          type: number
+        away:
+          type: number
+      required: [home, draw, away]
+
+    SportsBetRequest:
+      type: object
+      properties:
+        matchId:
+          type: string
+        betType:
+          type: string
+          enum: [home, draw, away]
+        betAmount:
+          type: number
+        odds:
+          type: number
+      required: [matchId, betType, betAmount, odds]
+
+    SupportMessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        file:
+          type: string
+          format: binary
+
+    AdminVerifyRequest:
+      type: object
+      properties:
+        code:
+          type: string
+      required: [code]
+
+    AdminUsersList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/AdminUserItem"
+      required: [users]
+
+    AdminUserItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        username:
+          type: string
+        phone:
+          type: string
+        balance:
+          type: number
+        isBlocked:
+          type: boolean
+        totalDeposited:
+          type: number
+        createdAt:
+          type: string
+      required: [id, userId, username, phone, balance, isBlocked, totalDeposited, createdAt]
+
+    AdminBalanceRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        amount:
+          type: number
+        action:
+          type: string
+          enum: [add, subtract]
+        reason:
+          type: string
+      required: [userId, amount, action]
+
+    AdminBlockRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        action:
+          type: string
+          enum: [block, unblock]
+      required: [userId, action]

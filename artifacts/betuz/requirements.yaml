@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For slot machine reel animations and premium page transitions"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for merging tailwind classes safely"
+  "lucide-react": "Beautiful vector icons for bottom nav and UI"
+  "canvas-confetti": "For celebratory winning effects in the Slots game"
+  "@types/canvas-confetti": "Types for canvas-confetti"
+
+images:
+  - path: "artifacts/betuz/public/images/hero-bg.png"
+    description: "Premium deep dark blue casino background with glowing subtle gold accents, floating casino chips, and dramatic lighting, 1xbet style"
+    aspect_ratio: "16:9"
+  - path: "artifacts/betuz/public/images/logo.png"
+    description: "Luxurious typography logo saying 'BetUZ' in 3D gold metallic letters on a completely transparent background"
+    aspect_ratio: "1:1"
+
+notes:
+  - Intercepting window.fetch to globally inject the Authorization Bearer token from localStorage since the generated Orval hooks rely on fetch.
+  - Slots game enforces exact 50% win probability locally before calling the mutation to sync with the backend.

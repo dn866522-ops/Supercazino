@@ -1,0 +1,34 @@
+​Framework: React or Next.js for Frontend, Node.js (Express) for Backend. Database: PostgreSQL or MongoDB.
+​User System: Full registration and login system. Session persistence (JWT/Cookies) so the user stays logged in even after page refresh. Each user gets a unique numeric ID (e.g., 191919120).
+​Games: - 20+ Casino games (Mines, Apple of Fortune, Crystal, Slots, etc.) with high-quality graphics and sound effects.
+​Sports betting (Football) section with real-time odds updates.
+​NO Demo mode. Real balance only.
+​Games must update balance immediately after a win/loss.
+​Deposit System:
+​Methods: Uzcard, Humo, Visa.
+​Flow: Select Method -> Enter Amount -> Show Random Card Number (from a predefined list) -> User pays -> Upload Receipt (Image/PDF) -> Click "Paid".
+​Card List (Randomize):
+​8600060997698544 (Umurova Sayyora)
+​5614 6867 0950 1780 (Negmurodov Mirzoxid)
+​9860196619323336 (Negmurodov Mirzoxid)
+​4195250052459060 (Negmurodov Mirzoxid)
+​Limits: Uzcard (min 30k), Humo (min 10k), Visa (min 100k).
+​Withdrawal System:
+​Limits: Uzcard (80k), Humo (70k), Visa (100k).
+​Rules: User must complete profile and have a 1:1 wager-to-deposit ratio to withdraw.
+​Support & Bot Integration:
+​Use Telegram Bot API (8520676994:AAGeJoFl7snXkTfNG3iRFSxX4J8fB6JXReA).
+​Deposit receipts and support messages (text, photo, video) must go to Telegram.
+​Personal notifications to: 8414989794.
+​Auto-close chat: If the operator doesn't respond in 30 mins, show "All operators busy" and close.
+​Referral System: Invite 5 friends. If each deposits 100k+, user gets 200k bonus.
+​Admin Panel:
+​Hidden inside the site. Access Code: M1i2r3z4o5.
+​Capabilities: View all users, Block/Unblock, Add/Subtract balance (Tokens) by User ID.
+​UI/UX: Dark theme, premium gold/blue "1xbet" style. Bottom Navigation: Admin, Support, Casino, Sport, Profile. Back buttons on every sub-page.
+​Admin paneli va sayt qanday ishlashi haqida tushuntirish:
+​Admin paneli: Saytning pastki qismidagi "Admin" tugmasini bosasiz, u yerda kod so'raladi. M1i2r3z4o5 kodini kiritganingizda, barcha foydalanuvchilar ro'yxati chiqadi. Har bir foydalanuvchining ID raqami orqali unga pul qo'shishingiz (depozitini tasdiqlash) yoki yechib olishingiz mumkin.
+​To'lovlar: Foydalanuvchi chek yuklaganda, siz ko'rsatgan Telegram botga rasm bo'lib tushadi. Siz chekdagi summani ko'rib, Admin panelidan o'sha foydalanuvchining ID-siga pulni yuborasiz.
+​Xavfsizlik: Sayt "Session" tizimida ishlaydi, ya'ni foydalanuvchi brauzerni yopsa ham, login/paroli eslab qolinadi
+Asosiysi sayt uzbek tilida bo'lsinRo'yxatdan o'tgandan keyin chiqib kirsa ochib ketmasin
+Birinchi bo'lib admin panelini qur umuman xato qilma

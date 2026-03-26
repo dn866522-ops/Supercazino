@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "BetUZ - Kazakhstan Casino & Sports Betting"
+version = "1.0.0"
+id = "artifacts/betuz"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 25827
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/betuz run dev"
+
+[services.env]
+PORT = "25827"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/betuz", "run", "build"]
+publicDir = "artifacts/betuz/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

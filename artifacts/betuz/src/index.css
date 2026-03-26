@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+
+  --color-background: hsl(222 47% 7%);
+  --color-foreground: hsl(210 40% 98%);
+  
+  --color-card: hsl(222 47% 11%);
+  --color-card-foreground: hsl(210 40% 98%);
+  
+  --color-border: hsl(214 32% 15%);
+  --color-input: hsl(214 32% 15%);
+  --color-ring: hsl(217 91% 60%);
+
+  /* 1xBet Style Blue */
+  --color-primary: hsl(217 91% 60%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  
+  /* Premium Gold */
+  --color-accent: hsl(43 96% 56%);
+  --color-accent-foreground: hsl(0 0% 0%);
+  
+  --color-muted: hsl(214 32% 15%);
+  --color-muted-foreground: hsl(215 20% 65%);
+  
+  --color-success: hsl(142 71% 45%);
+  --color-success-foreground: hsl(0 0% 100%);
+  
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+}
+
+@layer base {
+  html {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30;
+    overflow-x: clip;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  img, video, canvas, svg {
+    max-width: 100%;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-md border border-white/5 shadow-xl;
+  }
+  .gold-gradient {
+    @apply bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-600;
+  }
+  .gold-text {
+    @apply bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
